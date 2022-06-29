@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class= "w3-container" x-data = "{
+    holidays: [{id: 1, map:'NewYear', label: 'New Years'},
+               {id: 2, map:'MLK', label: 'Martin Lurther King Day'},
+               {id: 3, map:'Presidents', label: 'Presidents Day'},
+               {id: 4, map:'Memorial', label: 'Memorial Day'},
+               {id: 5, map:'Juneteenth', label: 'Juneteenth'}, 
+               {id: 6, map:'Independence', label: 'Independence Day'}, 
+               {id: 7, map:'Labor', label: 'Labor Day'}, 
+               {id: 8, map:'Columbus', label: 'Indigenous Peoples Day'},
+               {id: 9, map:'Veterans', label: 'Veterans Day'},
+               {id: 10, map:'Thanksgiving', label: 'Thanksgiving Day'},
+               {id: 11, map: 'Christmas', label: 'Christmas'},
+               ],
+    countYears: 11,
+    startYear: 2019,
+    months: [{id: '01', name: 'January'},
+             {id: '02', name: 'February'},  
+             {id: '03', name: 'March'},
+             {id: '04', name: 'April'},
+             {id: '05', name: 'May'},
+             {id: '06', name: 'June'},
+             {id: '07', name: 'July'},
+             {id: '08', name: 'August'},
+             {id: '09', name: 'September'},
+             {id: '10', name: 'October'},
+             {id: '11', name: 'November'},
+             {id: '12', name: 'December'},
+            ],
+    }">
+    <form x-data="WorkdayForm()" @submit.prevent="submitForm()" class="w3-container w3-card-4">
+
+      <h1 style="color:teal">Find Workdays</h1>
+      
+      <select class="w3-select" name="year" x-model="formData.year">
+        <option value="" disabled selected>Select a Year</option>
+        <template x-for="i in countYears">
+          <option x-text="startYear + i"></option>
+        </template>
+      </select>
+
+      
+      <select class="w3-select" name="month" x-model="formData.month">
+        <option value="" disabled selected>Select a Month</option>
+        <template x-for="month in months">
+          <option x-text="month.name" x-bind:value="month.id"></option>
+        </template>
+      </select>
+
+      <table> 
+        <tr><th>Select Holidays</th></tr>
+        <template x-for = "holiday in holidays">
+          <tr>
+            <td x-text = "holiday.label"></td>
+            <td><input name="holidays" type="checkbox" x-model="formData.holidays" x-bind:value ="holiday.map"></td>
+          </tr>
+        </template>
+      </table>
+      
+      <div class = "w3-padding w3-margin">
+        <button value="Submit" class="w3-btn w3-teal">Submit</button>
+      </div>
+  
+  <div x-show="showResult = true" class="w3-card-4 w3-padding w3-margin">
+    <span x-text="resultData.month + ' ' + resultData.year + ' Workdays: ' + resultData.workdays "></span><br>
+    <!-- <span x-text = "'Selected Month:' + formData.month"></span><br>
+    <span x-text = "'Selected Year:' + formData.year"></span><br>
+    <span x-text="'Selected Holidays: ' + formData.holidays"></span> -->
+  </div>
+  </form>
+</div>
+
+<script>
+  function WorkdayForm(){
+    return {
+      formData: {
+        year: "",
+        month: "",
+        holidays: [],
+        workdays: "",
+      },
+      resultData: {
+        year: "",
+        month: "",
+        holidays: [],
+        workdays: "",
+      },
+      // showResult: true,
+      holidayString: '',
+      apiString: '',
+      buildApiString(){
+        this.apiString = '';
+        this.holidayString = '';
+        this.apiString += `http://localhost:8080/api?`;
+        this.apiString += `year=${this.formData.year}`;
+        this.apiString += `&month=${this.formData.month}`;
+        for (let i = 0; i < this.formData.holidays.length; i++){
+          this.holidayString += `&holidays=${this.formData.holidays[i]}`;
+        }
+        this.apiString += this.holidayString;
+      },
+      submitForm(){
+        console.log("submitted");
+        this.buildApiString();
+        console.log(this.apiString);
+        let result = fetch(this.apiString,
+          {
+            method: "GET",
+          }
+        );
+        result.then(res => 
+          res.json()).then(d=>{
+            console.log(d.Days)
+            this.resultData.year = d.Year;
+            this.resultData.month = d.month;
+            this.resultData.workdays = d.Days;
+          })
+        }
+      }
+    }
+  
+
+</script>
+
+<script src="popup.js"></script>
+</body>
+</html>
