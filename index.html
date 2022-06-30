@@ -5,52 +5,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="app.css">
   <title>Document</title>
 </head>
 <body>
-  <div class= "w3-container">
-    <div id="form">
-      <h4 style="color:teal; font-weight: 700;" class="w3-center">Workdaze</h4>
-      <div class="w3-row w3-border w3-border-teal">
-        <div class="w3-col s6 w3-teal w3-border w3-border-teal" >
-          <select class="w3-select w3-small" id="year"name="year" required>
-            <option value="" disabled >Year</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023"selected>2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-            <option value="2026">2026</option>
-            <option value="2027">2027</option>
-            <option value="2028">2028</option>
-            <option value="2029">2029</option>
-            <option value="2030">2030</option>
-         </select>
-       </div>
-      <div class="w3-col s6 w3-teal w3-border w3-border-teal">
-        <select class="w3-select w3-small" id="month">
-          <option value="" disabled selected>Month</option>
-            <option value="01">January</option>
-            <option value="02">February</option>
-            <option value="03">March</option>
-            <option value="04">April</option>
-            <option value="05">May</option>
-            <option value="06">June</option>
-            <option value="07">July</option>
-            <option value="08">August</option>
-            <option value="09">September</option>
-            <option value="10">October</option>
-            <option value="11"selected>November</option>
-            <option value="12">December</option>
-        </select>
-      </div>
-    </div>
-  
-    <div class="w3-center w3-teal w3-margin-top">Select Federal Holidays</div>    
+  <div class= "w3-container w3-light-grey">
+    <h5 style="color:black; font-weight: 700;" class="w3-center">Workda<img src="/images/Dayz16.png">e</h5>
+    
+    <div id="holidayHeader" class="w3-center w3-teal w3-medium">Select Federal Holidays
+      <i class="fa fa-caret-down"></i>
+    </div>   
 
-    <table id="table" class="w3-small w3-table"> 
+    <table id="table" class="w3-small w3-table w3-accordion-content"> 
       <tbody>
       <tr class="w3-hover-teal w3-border-bottom w3-border-teal">
         <td><label for="NewYear">New Years</label></td>
@@ -74,7 +41,7 @@
       </tr>
       <tr class="w3-hover-teal w3-border-bottom w3-border-teal">
         <td><label for="Independence">Independence Day</label></td>
-        <td><input id="Independence" type="checkbox" value="Independence" checked></td>
+        <td><input id="Independence" type="checkbox" value="Indenpendence" checked></td>
       </tr>
       <tr class="w3-hover-teal w3-border-bottom w3-border-teal">
         <td><label for="Labor">Labor Day</label></td>
@@ -98,12 +65,49 @@
       </tr>
       </tbody>
     </table>
-      
+   <!-- BEGIN -->
+   <div id="form">
+    <div class="w3-center w3-teal w3-margin-top w3-medium">Select Year & Month</div>    
+    <div class="w3-row w3-border w3-border-teal">
+      <div class="w3-col s6 w3-teal w3-border w3-border-teal" >
+        <select class="w3-select w3-small" id="year"name="year" required>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029</option>
+          <option value="2030">2030</option>
+       </select>
+     </div>
+    <div class="w3-col s6 w3-teal w3-border w3-border-teal">
+      <select class="w3-select w3-small" id="month">
+          <option value="01">January</option>
+          <option value="02">February</option>
+          <option value="03">March</option>
+          <option value="04">April</option>
+          <option value="05">May</option>
+          <option value="06">June</option>
+          <option value="07">July</option>
+          <option value="08">August</option>
+          <option value="09">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+      </select>
+    </div>
+  </div>
+    <!-- END -->
+    
     <div class = "w3-padding w3-margin w3-center" id="btnDiv">
-      <span id="btn" class="w3-btn w3-teal">Submit</span>
+      <span id="btn" class="w3-btn w3-teal w3-small">Submit</span>
     </div>
   
-    <div id="results" class="w3-container w3-pale-green w3-margin" style="display:none">
+    <div id="results" class="w3-container w3-pale-green" style="display:none">
       <span id="daySpan" class="w3-closebtn">x</span>
       <p id="workdaze">Work Days: <span id="daze" class="w3-badge w3-teal"></span></p>
     </div>

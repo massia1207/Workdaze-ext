@@ -7,7 +7,7 @@
  const resultText = document.getElementById('workdaze');
  const btnDiv = document.getElementById('btnDiv');
  const daze = document.getElementById('daze');
-
+ const holidayHeader = document.getElementById('holidayHeader');
 
  button.addEventListener('click',()=>{
   let formYear = y.options[y.selectedIndex].value;
@@ -26,7 +26,7 @@
   document.getElementById('results').style.display="block";
   
   let api = buildApiString(formYear,formMonth,h);
-  // console.log(api);
+  console.log(api);
   chrome.runtime.sendMessage({method: "getStatus", data:api}, function(res){
     daze.innerHTML = res.toString();
     return true;
@@ -42,6 +42,40 @@ resultBox.addEventListener('click', () =>{
 })
 
 
+holidayHeader.addEventListener('click', ()=>{
+  let x = document.getElementById('table');
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+} else { 
+    x.className = x.className.replace(" w3-show", "");
+}
+})
+
+
+window.onload = function setMonth(){
+  let d = new Date();
+  var mo = d.getMonth() + 1;
+  if (mo < 10){
+    mo = "0"+mo;
+  }
+  let yr = d.getYear()+1900;
+  let years = document.getElementById("year"); 
+  let months = document.getElementById("month"); 
+  let monthOptions = months.options;
+  let yearOptions = years.options;
+  for(let i = 0; i < monthOptions.length; i++){
+      if(monthOptions[i].value == mo){
+          monthOptions.selectedIndex = i;
+          break;
+      }
+  }
+  for(let j = 0; j < yearOptions.length; j++){
+    if(yearOptions[j].value == yr){
+        yearOptions.selectedIndex = j;
+        break;
+    }
+}
+}
 
 function buildApiString(y, m, h){
   let apiString = '';
@@ -50,7 +84,8 @@ function buildApiString(y, m, h){
   let month = m;
   let holidays = h;
   
-  apiString += `http://localhost:8080/api?`;
+  // apiString += `http://localhost:8081/api?`;
+  apiString += `https://workdaze-api-j5fajyv6ua-uk.a.run.app/api?`;
   apiString += `year=${year}`;
   apiString += `&month=${month}`;
   for (let i = 0; i < holidays.length; i++){

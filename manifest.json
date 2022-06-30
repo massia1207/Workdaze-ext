@@ -1,12 +1,12 @@
 {
   "name": "Workdaze",
-  "description": "Find number of workdays in each month",
+  "description": "Find number of workdays in a month.  Choose the U.S. Federal Holidays to include. Great tool for project management!",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "activeTab", "scripting"],
+  
   "action": {
     "default_popup": "index.html",
     "default_icon": {
